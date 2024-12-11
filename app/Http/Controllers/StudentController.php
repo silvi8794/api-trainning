@@ -6,6 +6,19 @@ use App\Models\Student;
 use App\Http\Services\StudentService;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Info(
+ *     title="API Trainning Documentation",
+ *     version="1.0.0",
+ *     description="API documentation for the project"
+ * )
+ * @OA\Server(
+ *     url="http://api.training.test/api",
+ *     description="API Server"
+ * )
+ *
+ */
+
 class StudentController extends Controller
 {
     /**
@@ -17,16 +30,31 @@ class StudentController extends Controller
     {
         $this->studentService = $studentService;
     }
-
+/**
+ * Listado de los registros de estudiantes
+ * @OA\Get(
+ *     path="/students",
+ *     summary="Get a list of students",
+ *     tags={"Students"},
+ *     @OA\Response(response=200, description="OK"),
+ *     @OA\Response(response=400, description="Invalid request")
+ * )
+ */
     public function index()
     {
         $students = $this->studentService->getAllStudents();
         return response()->json($students);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+/**
+ * @OA\Post(
+ *     path="/students",
+ *     summary="Create a new student",
+ *     tags={"Students"},
+ *     @OA\Response(response=201, description="Successful operation"),
+ *     @OA\Response(response=400, description="Invalid request")
+ * )
+ */
     public function store(Request $request)
     {
         $student = $this->studentService->createStudent($request->all());
@@ -35,9 +63,15 @@ class StudentController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     */
+/**
+ * @OA\Get(
+ *     path="/students/{id}",
+ *     summary="Get a student by ID",
+ *     tags={"Students"},
+ *     @OA\Response(response=200, description="Successful operation"),
+ *     @OA\Response(response=404, description="Student not found")
+ * )
+ */
     public function show(Student $student)
     {
         try{
@@ -47,9 +81,16 @@ class StudentController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    /**
-     * Update the specified resource in storage.
-     */
+   
+/**
+ * @OA\Put(
+ *     path="/students/{id}",
+ *     summary="Update a student by ID",
+ *     tags={"Students"},
+ *     @OA\Response(response=200, description="Successful operation"),
+ *     @OA\Response(response=400, description="Invalid request")
+ * )
+ */
     public function update(Request $request, Student $student)
     {
         try{
@@ -60,9 +101,15 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+/**
+ * @OA\Delete(  
+ *     path="/students/{id}",
+ *     summary="Delete a student by ID",
+ *     tags={"Students"},
+ *     @OA\Response(response=200, description="Successful operation"),
+ *     @OA\Response(response=404, description="Student not found")
+ * )
+ */
     public function destroy(Student $student)
     {
         try{
