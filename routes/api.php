@@ -23,4 +23,6 @@ use Laravel\Passport\Http\Controllers\TransientTokenController;
 Route::apiResource('students', StudentController::class);
 
 Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('auth/register', [AuthController::class, 'register']);
+
+Route::post('auth/register', [AuthController::class, 'register'])
+    ->middleware(['auth:api', 'role:admin']);

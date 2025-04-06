@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AuthService
 {
@@ -35,6 +36,12 @@ class AuthService
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (isset($data['role']) && Auth::check() && Auth::user()->hasRole('admin')) {
+            $user->assignRole($data['role']);
+        } else {
+            $user->assignRole('coach');
+        }
 
         $token = $user->createToken('Personal Access Token')->accessToken;
 
