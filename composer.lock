@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2891a0438b3021f878697112acb57d58",
+    "content-hash": "956b36572c27cf89840fff5b11ab0e87",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -4491,6 +4491,7 @@
             "time": "2024-04-27T21:32:50+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "spatie/laravel-permission",
             "version": "6.16.0",
             "source": {
@@ -4583,6 +4584,17 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "swagger-api/swagger-ui",
+            "version": "v5.18.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swagger-api/swagger-ui.git",
+                "reference": "3c7e281d97fd3e70b25f7ff4a001eabd56e375d7"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> 7dec84dd69ed62894203970ca739582d57e0d961
                 "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/3c7e281d97fd3e70b25f7ff4a001eabd56e375d7",
                 "reference": "3c7e281d97fd3e70b25f7ff4a001eabd56e375d7",
                 "shasum": ""

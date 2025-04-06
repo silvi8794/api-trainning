@@ -35,6 +35,7 @@ class AuthServiceTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password123',
             'role' => 'coach'
+
         ];
 
         $result = $service->register($data);
