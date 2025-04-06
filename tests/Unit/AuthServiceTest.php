@@ -27,11 +27,15 @@ class AuthServiceTest extends TestCase
         $userModelMock = Mockery::mock();
         $userModelMock->shouldReceive('create')->once()->andReturn($userMock);
 
+        $userMock->shouldReceive('assignRole')->once()->with('coach');
+
         $service = new AuthService($userModelMock);
         $data = [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => 'password123'
+            'password' => 'password123',
+            'role' => 'coach'
+
         ];
 
         $result = $service->register($data);

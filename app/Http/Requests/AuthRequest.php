@@ -25,6 +25,7 @@ class AuthRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
+            'role' => 'sometimes|in:admin,coach',
         ];
     }
 
