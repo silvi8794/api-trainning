@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 
+
 class AuthService
 {
     protected $userModel;
@@ -43,7 +44,6 @@ class AuthService
         } else {
             $user->assignRole('coach');
         }
-
 
         $token = $user->createToken('Personal Access Token')->accessToken;
 
