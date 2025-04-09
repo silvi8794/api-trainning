@@ -30,7 +30,7 @@ class Student extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logAll() // o podés usar logOnly(['field1', 'field2'])
+            ->logAll() // logOnly(['field1', 'field2'])
             ->useLogName('student') // opcional, para agrupar logs por tipo
             ->logOnlyDirty() // solo si cambió
             ->dontSubmitEmptyLogs();
