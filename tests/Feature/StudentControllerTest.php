@@ -2,24 +2,18 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Tests\TestCase;
 use Faker\Factory as Faker;
+use Laravel\Passport\Passport;
+
 class StudentControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     public function test_get_all_students()
     {
+        $userMock = \Mockery::mock(User::class)->makePartial();
+        $userMock->shouldReceive('hasRole')->with('admin')->andReturn(true);
+        Passport::actingAs($userMock);
 
         $response = $this->get('/api/students');
         $response->assertStatus(200);
@@ -28,12 +22,12 @@ class StudentControllerTest extends TestCase
 
     public function test_create_student()
     {
-        
+
         $faker = Faker::create();
         $randomDni = rand(10000000, 99999999);
-        $randomEmail = $faker->unique()->safeEmail; 
+        $randomEmail = $faker->unique()->safeEmail;
 
-        $data =[
+        $data = [
             'dni' => $randomDni,
             'given_name' => 'Maria',
             'family_name' => 'Suarez',
