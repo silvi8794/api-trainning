@@ -27,7 +27,7 @@ class Student extends Model
         'state' => 'boolean',
     ];
 
-    public function getActivitylogOptions(): LogOptions
+ public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll() // logOnly(['field1', 'field2'])
