@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
 
 use App\Models\Payment;
 use Illuminate\Support\Facades\Log;
@@ -49,12 +49,16 @@ class PaymentService
         }
     }
 
-    public function getByStudent($studentId)
+    public function getDebtors()
     {
         try {
-            return Payment::where('student_id', $studentId)->get();
+            return \App\Models\Student::whereDoesntHave('payments', function ($query) {
+                $query->whereMonth('payment_date', now()->month)
+                      ->whereYear('payment_date', now()->year)
+                      ->where('is_paid', true);
+            })->get();
         } catch (Exception $e) {
-            Log::error('Error getting payments from student: ' . $e->getMessage(), ['student_id' => $studentId]);
+            Log::error('Error getting debtors: ' . $e->getMessage());
             return collect();
         }
     }

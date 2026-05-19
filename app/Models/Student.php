@@ -17,17 +17,36 @@ class Student extends Model
         'given_name',
         'family_name',
         'email',
-        'bithdate',
+        'birthdate',
         'state',
     ];
 
 
     protected $casts = [
-        'bithdate' => 'datetime',
+        'birthdate' => 'datetime',
         'state' => 'boolean',
     ];
 
- public function getActivitylogOptions(): LogOptions
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function isUpToDate(): bool
+    {
+        return $this->payments()
+            ->whereMonth('payment_date', now()->month)
+            ->whereYear('payment_date', now()->year)
+            ->where('is_paid', true)
+            ->exists();
+    }
+
+    public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logAll() // logOnly(['field1', 'field2'])

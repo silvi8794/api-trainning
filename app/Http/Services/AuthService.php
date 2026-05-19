@@ -41,7 +41,8 @@ class AuthService
 
         if (isset($data['role']) && Auth::check() && Auth::user()->hasRole('admin')) {
             $user->assignRole($data['role']);
-        } else {
+        }
+        else {
             $user->assignRole('coach');
         }
 

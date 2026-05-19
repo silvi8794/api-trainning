@@ -5,6 +5,7 @@ RUN apk add --no-cache \
       freetype \
       libjpeg-turbo \
       libpng \
+      libzip \
       freetype-dev \
       libjpeg-turbo-dev \
       libpng-dev \
@@ -20,7 +21,7 @@ RUN apk add --no-cache \
     && apk del --no-cache freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev
 
 # Copiar archivos del proyecto
-WORKDIR /var/www
+WORKDIR /app
 COPY . .
 
 # Instalar Composer
@@ -30,11 +31,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install --no-dev --optimize-autoloader
 
 # Configuración de permisos
-RUN chown -R www-data:www-data /var/www && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /app && \
+    chmod -R 775 /app/storage /app/bootstrap/cache
 
 # Configurar el contenedor para ejecutar PHP-FPM
 USER www-data
-WORKDIR /var/www
+WORKDIR /app
 EXPOSE 9000
 CMD ["php-fpm"]
