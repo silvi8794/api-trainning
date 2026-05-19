@@ -16,7 +16,7 @@ class StudentFactory extends Factory
             'given_name' => $this->faker->firstName(),
             'family_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->email(),
-            'bithdate' => $this->faker->dateTimeBetween('-30 years', '-18 years'),
+            'birthdate' => $this->faker->date(),
             'state' => $this->faker->boolean(),
         ];
     }   

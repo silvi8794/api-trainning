@@ -62,7 +62,7 @@ class StudentServiceTest extends TestCase
             'given_name' => 'María',
             'family_name' => 'Gómez',
             'email' => 'maria@example.com',
-            'bithdate' => '1998-05-15',
+            'birthdate' => '1998-05-15',
             'state' => 'active',
         ];
 
