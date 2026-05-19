@@ -7,59 +7,43 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $paymentService;
+
+    public function __construct(\App\Http\Services\PaymentService $paymentService)
+    {
+        $this->paymentService = $paymentService;
+    }
+
     public function index()
     {
-        //
+        return response()->json($this->paymentService->getAll());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $payment = $this->paymentService->create($request->all());
+        return response()->json($payment, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Payment $payment)
     {
-        //
+        return response()->json($payment->load('student'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $updated = $this->paymentService->update($payment, $request->all());
+        return response()->json($updated);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Payment $payment)
     {
-        //
+        $this->paymentService->delete($payment);
+        return response()->json(['message' => 'Payment deleted successfully']);
+    }
+
+    public function debtors()
+    {
+        return response()->json($this->paymentService->getDebtors());
     }
 }
